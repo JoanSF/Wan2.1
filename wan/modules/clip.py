@@ -488,7 +488,7 @@ def clip_xlm_roberta_vit_h_14(
         pad_id=1,
         text_dim=1024,
         text_heads=16,
-        text_layers=24,
+        text_layers=1,
         text_post_norm=True,
         text_dropout=0.1,
         attn_dropout=0.0,
@@ -500,7 +500,7 @@ def clip_xlm_roberta_vit_h_14(
 
 class CLIPModel:
 
-    def __init__(self, dtype, device, tokenizer_path = "Wan-AI/Wan2.1-I2V-14B-480P"):
+    def __init__(self, dtype, device, tokenizer_path = "FacebookAI/xlm-roberta-large"):
         self.dtype = dtype
         self.device = device
         # self.checkpoint_path = checkpoint_path

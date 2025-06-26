@@ -477,7 +477,7 @@ class T5EncoderModel:
         dtype=torch.bfloat16,
         device=torch.cuda.current_device(),
         # checkpoint_path=None,
-        tokenizer_path="Wan-AI/Wan2.1-I2V-14B-480P",
+        tokenizer_path="google/umt5-xxl",
         shard_fn=None,
     ):
         self.text_len = text_len
@@ -487,11 +487,22 @@ class T5EncoderModel:
         self.tokenizer_path = tokenizer_path
 
         # init model
+        cfg = dict(
+            vocab_size=256384,
+            dim=4096,
+            dim_attn=4096,
+            dim_ffn=4096,
+            num_heads=64,
+            encoder_layers=1,
+            decoder_layers=1,
+            num_buckets=32,
+            shared_pos=False,
+            dropout=0.1)
         model = umt5_xxl(
             encoder_only=True,
             return_tokenizer=False,
             dtype=dtype,
-            device=device).eval().requires_grad_(False)
+            device=device, **cfg).eval().requires_grad_(False)
         # logging.info(f'loading {checkpoint_path}')
         # model.load_state_dict(torch.load(checkpoint_path, map_location='cpu'))
         self.model = model

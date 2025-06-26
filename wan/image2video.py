@@ -34,7 +34,7 @@ class WanI2V:
     def __init__(
         self,
         config,
-        checkpoint_dir,
+        # checkpoint_dir,
         device_id=0,
         rank=0,
         t5_fsdp=False,
