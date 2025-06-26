@@ -479,7 +479,7 @@ def clip_xlm_roberta_vit_h_14(
         vision_dim=1280,
         vision_mlp_ratio=4,
         vision_heads=16,
-        vision_layers=32,
+        vision_layers=1,
         vision_pool='token',
         activation='gelu',
         vocab_size=250002,

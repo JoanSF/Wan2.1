@@ -642,7 +642,7 @@ class WanVAE:
         self.model = _video_vae(
             # pretrained_path=vae_pth,
             z_dim=z_dim,
-        ).eval().requires_grad_(False).to_empty(device)
+        ).eval().requires_grad_(False).to_empty(device=device)
 
     def encode(self, videos):
         """
