@@ -80,26 +80,40 @@ class WanI2V:
             text_len=config.text_len,
             dtype=config.t5_dtype,
             device=torch.device('cpu'),
-            checkpoint_path=os.path.join(checkpoint_dir, config.t5_checkpoint),
-            tokenizer_path=os.path.join(checkpoint_dir, config.t5_tokenizer),
+            # checkpoint_path=os.path.join(checkpoint_dir, config.t5_checkpoint),
+            # tokenizer_path=os.path.join(checkpoint_dir, config.t5_tokenizer),
             shard_fn=shard_fn if t5_fsdp else None,
         )
 
         self.vae_stride = config.vae_stride
         self.patch_size = config.patch_size
         self.vae = WanVAE(
-            vae_pth=os.path.join(checkpoint_dir, config.vae_checkpoint),
+            # vae_pth=os.path.join(checkpoint_dir, config.vae_checkpoint),
             device=self.device)
 
         self.clip = CLIPModel(
             dtype=config.clip_dtype,
             device=self.device,
-            checkpoint_path=os.path.join(checkpoint_dir,
-                                         config.clip_checkpoint),
-            tokenizer_path=os.path.join(checkpoint_dir, config.clip_tokenizer))
+            # checkpoint_path=os.path.join(checkpoint_dir,
+            #                              config.clip_checkpoint),
+            # tokenizer_path=os.path.join(checkpoint_dir, config.clip_tokenizer)
+        )
 
-        logging.info(f"Creating WanModel from {checkpoint_dir}")
-        self.model = WanModel.from_pretrained(checkpoint_dir)
+        # logging.info(f"Creating WanModel from {checkpoint_dir}")
+        # self.model = WanModel.from_pretrained(checkpoint_dir)
+        model_config = {
+            "dim": 5120,
+            "eps": 1e-06,
+            "ffn_dim": 13824,
+            "freq_dim": 256,
+            "in_dim": 36,
+            "model_type": "i2v",
+            "num_heads": 40,
+            "num_layers": 40,
+            "out_dim": 16,
+            "text_len": 512
+        }
+        self.model = WanModel(**model_config)
         self.model.eval().requires_grad_(False)
 
         if t5_fsdp or dit_fsdp or use_usp:

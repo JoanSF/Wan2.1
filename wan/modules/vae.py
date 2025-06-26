@@ -609,9 +609,9 @@ def _video_vae(pretrained_path=None, z_dim=None, device='cpu', **kwargs):
         model = WanVAE_(**cfg)
 
     # load checkpoint
-    logging.info(f'loading {pretrained_path}')
-    model.load_state_dict(
-        torch.load(pretrained_path, map_location=device), assign=True)
+    # logging.info(f'loading {pretrained_path}')
+    # model.load_state_dict(
+    #     torch.load(pretrained_path, map_location=device), assign=True)
 
     return model
 
@@ -620,7 +620,7 @@ class WanVAE:
 
     def __init__(self,
                  z_dim=16,
-                 vae_pth='cache/vae_step_411000.pth',
+                #  vae_pth='cache/vae_step_411000.pth',
                  dtype=torch.float,
                  device="cuda"):
         self.dtype = dtype
@@ -640,7 +640,7 @@ class WanVAE:
 
         # init model
         self.model = _video_vae(
-            pretrained_path=vae_pth,
+            # pretrained_path=vae_pth,
             z_dim=z_dim,
         ).eval().requires_grad_(False).to(device)
 

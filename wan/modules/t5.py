@@ -476,14 +476,14 @@ class T5EncoderModel:
         text_len,
         dtype=torch.bfloat16,
         device=torch.cuda.current_device(),
-        checkpoint_path=None,
-        tokenizer_path=None,
+        # checkpoint_path=None,
+        tokenizer_path="Wan-AI/Wan2.1-I2V-14B-480P",
         shard_fn=None,
     ):
         self.text_len = text_len
         self.dtype = dtype
         self.device = device
-        self.checkpoint_path = checkpoint_path
+        # self.checkpoint_path = checkpoint_path
         self.tokenizer_path = tokenizer_path
 
         # init model
@@ -492,8 +492,8 @@ class T5EncoderModel:
             return_tokenizer=False,
             dtype=dtype,
             device=device).eval().requires_grad_(False)
-        logging.info(f'loading {checkpoint_path}')
-        model.load_state_dict(torch.load(checkpoint_path, map_location='cpu'))
+        # logging.info(f'loading {checkpoint_path}')
+        # model.load_state_dict(torch.load(checkpoint_path, map_location='cpu'))
         self.model = model
         if shard_fn is not None:
             self.model = shard_fn(self.model, sync_module_states=False)

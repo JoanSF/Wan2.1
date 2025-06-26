@@ -500,10 +500,10 @@ def clip_xlm_roberta_vit_h_14(
 
 class CLIPModel:
 
-    def __init__(self, dtype, device, checkpoint_path, tokenizer_path):
+    def __init__(self, dtype, device, tokenizer_path = "Wan-AI/Wan2.1-I2V-14B-480P"):
         self.dtype = dtype
         self.device = device
-        self.checkpoint_path = checkpoint_path
+        # self.checkpoint_path = checkpoint_path
         self.tokenizer_path = tokenizer_path
 
         # init model
@@ -514,9 +514,9 @@ class CLIPModel:
             dtype=dtype,
             device=device)
         self.model = self.model.eval().requires_grad_(False)
-        logging.info(f'loading {checkpoint_path}')
-        self.model.load_state_dict(
-            torch.load(checkpoint_path, map_location='cpu'))
+        # logging.info(f'loading {checkpoint_path}')
+        # self.model.load_state_dict(
+        #     torch.load(checkpoint_path, map_location='cpu'))
 
         # init tokenizer
         self.tokenizer = HuggingfaceTokenizer(
