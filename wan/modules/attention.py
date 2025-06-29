@@ -34,7 +34,7 @@ def flash_attention(
     window_size=(-1, -1),
     deterministic=False,
     dtype=torch.bfloat16,
-    version=None,
+    version=2,
 ):
     """
     q:              [B, Lq, Nq, C1].
