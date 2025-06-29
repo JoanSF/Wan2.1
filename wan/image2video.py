@@ -261,6 +261,8 @@ class WanI2V:
             ],
                          dim=1).to(self.device)
         ])[0]
+        print("msk.shape", msk.shape)
+        print("y.shape", y.shape)
         y = torch.concat([msk, y])
 
         @contextmanager
